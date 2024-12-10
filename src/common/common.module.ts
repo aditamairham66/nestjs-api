@@ -7,6 +7,8 @@ import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
 import 'winston-daily-rotate-file';
 import { errorFormat, jsonFormat } from './winston.logger';
+import { PrismaService } from './prisma.service';
+import { ValidationService } from './validation.service';
 
 @Module({
   imports: [
@@ -46,5 +48,7 @@ import { errorFormat, jsonFormat } from './winston.logger';
       isGlobal: true,
     }),
   ],
+  providers: [PrismaService, ValidationService],
+  exports: [PrismaService, ValidationService],
 })
 export class CommonModule {}
