@@ -9,6 +9,8 @@ import 'winston-daily-rotate-file';
 import { errorFormat, jsonFormat } from './winston.logger';
 import { PrismaService } from './prisma.service';
 import { ValidationService } from './validation.service';
+import { APP_FILTER } from '@nestjs/core';
+import { ErrorFilter } from './error.filter';
 
 @Module({
   imports: [
@@ -48,7 +50,14 @@ import { ValidationService } from './validation.service';
       isGlobal: true,
     }),
   ],
-  providers: [PrismaService, ValidationService],
+  providers: [
+    PrismaService,
+    ValidationService,
+    {
+      provide: APP_FILTER,
+      useClass: ErrorFilter,
+    },
+  ],
   exports: [PrismaService, ValidationService],
 })
 export class CommonModule {}
