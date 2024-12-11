@@ -35,6 +35,9 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
+# test Running Tests Sequentially Instead of Concurrently
+$ npm run test:runInBand
 ```
 
 ## Deployment

@@ -20,29 +20,29 @@ import { AuthMiddleware } from './auth/auth.middleware';
       level: 'debug',
       format: winston.format.json(),
       transports: [
-        new (winston.transports as any).DailyRotateFile({
-          level: 'error',
-          filename: 'logs/log-%DATE%.log',
-          datePattern: 'YYYY-MM-DD',
-          zippedArchive: true,
-          maxSize: '20m',
-          maxFiles: '14d',
-          format: winston.format.combine(
-            winston.format.timestamp(),
-            errorFormat(),
-            jsonFormat,
-          ),
-        }),
-        new winston.transports.Console({
-          level: 'debug',
-          format: winston.format.combine(
-            winston.format.colorize(),
-            winston.format.timestamp(),
-            nestWinstonModuleUtilities.format.nestLike('MyApp', {
-              prettyPrint: true,
-            }),
-          ),
-        }),
+        // new (winston.transports as any).DailyRotateFile({
+        //   level: 'error',
+        //   filename: 'logs/log-%DATE%.log',
+        //   datePattern: 'YYYY-MM-DD',
+        //   zippedArchive: true,
+        //   maxSize: '20m',
+        //   maxFiles: '14d',
+        //   format: winston.format.combine(
+        //     winston.format.timestamp(),
+        //     errorFormat(),
+        //     jsonFormat,
+        //   ),
+        // }),
+        // new winston.transports.Console({
+        //   format: winston.format.combine(
+        //     winston.format.colorize(),
+        //     winston.format.timestamp(),
+        //     nestWinstonModuleUtilities.format.nestLike('MyApp', {
+        //       prettyPrint: true,
+        //     }),
+        //   ),
+        // }),
+        new winston.transports.Console(),
       ],
     }),
     ConfigModule.forRoot({
