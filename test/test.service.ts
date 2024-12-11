@@ -8,6 +8,7 @@ export class TestService {
   constructor(private prismaService: PrismaService) {}
 
   async deleteAll() {
+    await this.deleteContact();
     await this.deleteUser();
   }
 
@@ -32,6 +33,14 @@ export class TestService {
 
   async getUser(): Promise<User> {
     return await this.prismaService.user.findUnique({
+      where: {
+        username: 'test',
+      },
+    });
+  }
+
+  async deleteContact() {
+    await this.prismaService.contact.deleteMany({
       where: {
         username: 'test',
       },

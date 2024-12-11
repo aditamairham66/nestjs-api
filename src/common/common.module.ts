@@ -27,14 +27,16 @@ import { AuthMiddleware } from './auth/auth.middleware';
           zippedArchive: true,
           maxSize: '20m',
           maxFiles: '14d',
-          format: errorFormat,
-        }),
-        new (winston.transports as any).Console({
-          level: 'info',
-          format: jsonFormat,
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            errorFormat(),
+            jsonFormat,
+          ),
         }),
         new winston.transports.Console({
+          level: 'debug',
           format: winston.format.combine(
+            winston.format.colorize(),
             winston.format.timestamp(),
             nestWinstonModuleUtilities.format.nestLike('MyApp', {
               prettyPrint: true,
