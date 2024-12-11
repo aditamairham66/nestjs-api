@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import {
   WinstonModule,
   utilities as nestWinstonModuleUtilities,
@@ -12,13 +12,13 @@ import { ValidationService } from './validation.service';
 import { APP_FILTER } from '@nestjs/core';
 import { ErrorFilter } from './error.filter';
 
+@Global()
 @Module({
   imports: [
     WinstonModule.forRoot({
       level: 'debug',
       format: winston.format.json(),
       transports: [
-        // Transport untuk error (seperti format Laravel)
         new (winston.transports as any).DailyRotateFile({
           level: 'error',
           filename: 'logs/log-%DATE%.log',
@@ -28,14 +28,10 @@ import { ErrorFilter } from './error.filter';
           maxFiles: '14d',
           format: errorFormat,
         }),
-
-        // Transport untuk log JSON
         new (winston.transports as any).Console({
           level: 'info',
           format: jsonFormat,
         }),
-
-        // Console logs untuk debugging
         new winston.transports.Console({
           format: winston.format.combine(
             winston.format.timestamp(),
