@@ -97,5 +97,4 @@ export class ContactService {
 
     return this.toContactResponse(contact);
   }
-
 }
